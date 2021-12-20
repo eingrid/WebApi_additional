@@ -55,8 +55,15 @@ namespace WEBAPI
 
         public void Save_and_Back(){
             Save_btn.Click();   
+
+            
+            IWebElement message_succesfull = driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/div[2]/form/div[3]/table/tbody/tr/td[2]"));
+            if (message_succesfull.Text.Contains("added Nazar Andrushko") == false) {
+                throw new Exception("Candidate with name Nazar Andrushko wasn't added ");
+            }
             IWebElement Back_btn = driver.FindElement(By.XPath("//*[@id='btnBack']"));
             Back_btn.Click();
+         
         }
         
         public void execute(){
@@ -66,7 +73,7 @@ namespace WEBAPI
             this.AddKeywords();
             this.Save_and_Back();
         }
-
+        
     }
     class PageCandidates{
         IWebDriver driver;
@@ -114,7 +121,7 @@ namespace WEBAPI
              IWebElement Seach_btn = driver.FindElement(PSearch_btn);
              Seach_btn.Click();
 
-             // Check that element is added
+
              //Assert.AreEqual(ElementDisplayed(_USD), true);
         }
         public void Delete(){
@@ -150,7 +157,6 @@ namespace WEBAPI
             IWebDriver driver = new FirefoxDriver("/home/eingird/Study/csharp/WebApi");
             driver.Navigate().GoToUrl("https://opensource-demo.orangehrmlive.com/");
 
-            // Work Shifts page
             System.Threading.Thread.Sleep(1000);
     
             IWebElement login = driver.FindElement(By.Id("txtUsername"));
@@ -178,10 +184,6 @@ namespace WEBAPI
             candidates.execute();
 
 
-
-
-    
-            System.Threading.Thread.Sleep(50000);
 
             driver.Close();
         }
